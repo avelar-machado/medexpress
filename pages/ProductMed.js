@@ -1,12 +1,8 @@
-// ProdutosFarmacia.js
+// Produts.js
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
 
-export default function ProdutosFarmacia() {
-  const route = useRoute();
-  const { userData } = route.params;
-  const navigation = useNavigation();
+function Products ({ userData }) {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -24,6 +20,7 @@ export default function ProdutosFarmacia() {
   };
 
   const renderItem = ({ item }) => (
+    
     <TouchableOpacity style={styles.productItem} onPress={() => handleProductClick(item)}>
       <Text style={styles.productName}>{item.nome}</Text>
       <Text style={styles.productDescription}>{item.descricao}</Text>
@@ -82,3 +79,5 @@ const styles = StyleSheet.create({
     color: '#007bff',
   },
 });
+
+export default Products;

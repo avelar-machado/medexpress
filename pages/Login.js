@@ -3,13 +3,14 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-nativ
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 
-export default function Login() {
+function Login() {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState(null); // Novo estado para mensagem de erro
 
   const handleLogin = async () => {
+    
     try {
       // Limpa a mensagem de erro ao tentar autenticar novamente
       setErrorMessage(null);
@@ -29,7 +30,6 @@ export default function Login() {
       // Verifique se a resposta foi bem-sucedida (código 2xx)
       if (response.ok) {
         const userData = await response.json();
-
         // Verifique o tipo de usuário e navegue para a página apropriada
         if (userData.tipo === 'Cliente') {
           navigation.navigate('Cliente', { userData });
@@ -54,7 +54,7 @@ export default function Login() {
   };
 
   const handleRegister = () => {
-    navigation.navigate('Register');
+    navigation.navigate('Registo');
     console.log('Register pressed');
   };
 
@@ -98,7 +98,7 @@ export default function Login() {
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.register} onPress={handleRegister}>
-        <Text style={styles.linkText}>Não tem uma conta? Registre-se já!</Text>
+        <Text style={styles.linkText}>Não tem uma conta? Registe-se já!</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
@@ -174,3 +174,5 @@ const styles = StyleSheet.create({
     color: '#721c24',
   },
 });
+
+export default Login;

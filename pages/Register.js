@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 import RNPickerSelect from 'react-native-picker-select';
 
-export default function Register() {
+function Register() {
   const navigation = useNavigation();
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
@@ -31,16 +31,16 @@ export default function Register() {
 
       // Verifique se a resposta foi bem-sucedida (código 2xx)
       if (response.ok) {
-        // Faça o que for necessário após o cadastro bem-sucedido
+        // Faça o que for necessário após o Registo bem-sucedido
 
-        // Navegue para a página de login após o cadastro bem-sucedido
+        // Navegue para a página de login após o Registo bem-sucedido
         navigation.navigate('Login');
       } else {
         // Se houver um erro, trate de acordo
-        console.log('Erro ao cadastrar:', response.status);
+        console.log('Erro ao Registar:', response.status);
       }
     } catch (error) {
-      console.error('Erro ao tentar cadastrar:', error);
+      console.error('Erro ao tentar Registar:', error);
     }
   };
 
@@ -48,7 +48,7 @@ export default function Register() {
     <View style={styles.container}>
       <View style={styles.header}>
         <Icon name="user-plus" size={50} color="#3498db" style={styles.icon} />
-        <Text style={styles.title}>Registra-se no MEDEXPRESS</Text>
+        <Text style={styles.title}>Registar-se no MEDEXPRESS</Text>
       </View>
 
       <View style={styles.inputContainer}>
@@ -106,7 +106,7 @@ export default function Register() {
       </View>
 
       <TouchableOpacity style={styles.registerButton} onPress={handleRegister}>
-        <Text style={styles.registerButtonText}>Cadastrar</Text>
+        <Text style={styles.registerButtonText}>Registar</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.backToLogin} onPress={() => navigation.navigate('Login')}>
@@ -190,3 +190,5 @@ const pickerSelectStyles = StyleSheet.create({
     paddingRight: 30, // to ensure the text is never behind the icon
   },
 });
+
+export default Register;

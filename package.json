@@ -9,33 +9,40 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo/metro-runtime": "~3.2.1",
     "@react-native-picker/picker": "2.7.5",
-    "@react-navigation/bottom-tabs": "^6.5.11",
-    "@react-navigation/drawer": "^6.6.6",
-    "@react-navigation/native": "^6.1.9",
-    "@react-navigation/stack": "^6.3.20",
+    "@react-navigation/bottom-tabs": "^6.5.20",
+    "@react-navigation/drawer": "^6.6.15",
+    "@react-navigation/native": "^6.1.17",
+    "@react-navigation/stack": "^6.3.29",
     "cors": "^2.8.5",
     "expo": "^51.0.8",
     "expo-file-system": "~17.0.1",
     "expo-mail-composer": "~13.0.1",
     "expo-status-bar": "~1.12.1",
-    "express": "^4.18.2",
+    "express": "^4.19.2",
     "lodash": "^4.17.21",
-    "mysql2": "^3.9.0",
+    "mysql2": "^3.9.7",
     "react": "18.2.0",
+    "react-dom": "18.2.0",
     "react-native": "0.74.1",
     "react-native-dropdown-picker": "^5.4.6",
     "react-native-fs": "^2.20.0",
     "react-native-gesture-handler": "~2.16.1",
     "react-native-mail": "^6.1.1",
     "react-native-modal-dropdown": "^1.0.2",
-    "react-native-picker-select": "^9.0.1",
+    "react-native-picker-select": "^9.1.3",
     "react-native-reanimated": "~3.10.1",
     "react-native-screens": "3.31.1",
-    "sequelize": "^6.35.2"
+    "react-native-web": "~0.19.10",
+    "sequelize": "^6.37.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.24.0"
+    "@babel/core": "^7.24.0",
+    "@types/react": "~18.2.79",
+    "@types/react-native": "^0.73.0",
+    "expo-module-scripts": "^3.5.1",
+    "typescript": "~5.3.3"
   },
   "private": true
 }
