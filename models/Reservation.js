@@ -1,4 +1,3 @@
-// models/Reservation.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
@@ -18,6 +17,11 @@ const Reservation = sequelize.define('Reservation', {
   clientEmail: {
     type: DataTypes.STRING,
     allowNull: false,
+  },
+  date: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: DataTypes.NOW, // Define o valor padrão como a data e hora atuais
   }
 }, {
   timestamps: false, // Desativa os campos createdAt e updatedAt

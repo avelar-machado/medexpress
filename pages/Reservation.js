@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Animated } from 'react-native';
+import { Ionicons } from '@expo/vector-icons'; // Importe os ícones desejados
 
 function Reservation({ userData }) {
   const [reservations, setReservations] = useState([]);
+  const [fadeIn] = useState(new Animated.Value(0)); // Configuração de animação fade-in
 
   useEffect(() => {
     fetchReservations();
@@ -17,37 +19,65 @@ function Reservation({ userData }) {
         items: JSON.parse(item.items) // Convertendo a string JSON de items para objeto JavaScript
       }));
       setReservations(formattedData);
+      // Inicia a animação fade-in após os dados serem carregados
+      Animated.timing(fadeIn, {
+        toValue: 1,
+        duration: 500,
+        useNativeDriver: true,
+      }).start();
     } catch (error) {
       console.error('Erro ao buscar reservas:', error);
     }
   };
 
   const renderItem = ({ item }) => (
-    <View style={styles.reservationItem}>
-      <Text style={styles.pharmacyName}>Farmácia: {item.pharmacyEmail}</Text>
-      <Text style={styles.totalPrice}>Preço Total: {item.total.toFixed(2)} Kz</Text>
+    <Animated.View style={[styles.reservationItem, { opacity: fadeIn }]}>
+      <TouchableOpacity>
+        <View style={styles.iconContainer}>
+          <Ionicons name="storefront-outline" size={24} color="#007bff" />
+          <Text style={styles.iconText}><Text style={{fontWeight: 'bold'}}>Email da Farmácia:</Text> {item.pharmacyEmail}</Text>
+        </View>
+      </TouchableOpacity>
+      <TouchableOpacity>
+        <View style={styles.iconContainer}>
+          <Ionicons name="cash-outline" size={24} color="#007bff" />
+          <Text style={styles.iconText}><Text style={{fontWeight: 'bold'}}>Preço Total:</Text> {item.total.toFixed(2)} Kz</Text>
+        </View>
+      </TouchableOpacity>
+      <TouchableOpacity>
+        <View style={styles.iconContainer}>
+          <Ionicons name="calendar-outline" size={24} color="#007bff" />
+          <Text style={styles.iconText}><Text style={{fontWeight: 'bold'}}>Data da Reserva:</Text> {formatDate(item.date)}</Text>
+        </View>
+      </TouchableOpacity>
       <View style={styles.itemsList}>
         <Text style={styles.itemTitle}>Produtos:</Text>
         {item.items.map((product, index) => (
           <View key={index}>
             <Text style={styles.item}>
-              Nome: {product.name}
+              <Ionicons name="medkit-outline" size={16} color="#555" /> Nome: {product.name}
             </Text>
             <Text style={styles.item}>
-              Quantidade: {product.quantity}
+              <Ionicons name="cube-outline" size={16} color="#555" /> Quantidade: {product.quantity}
             </Text>
             <Text style={styles.item}>
-              Preço Unitário: {product.price.toFixed(2)} Kz
+              <Ionicons name="pricetag-outline" size={16} color="#555" /> Preço Unitário: {product.price.toFixed(2)} Kz
             </Text>
             <Text style={styles.item}>
-              Subtotal: {product.subtotal.toFixed(2)} Kz
+              <Ionicons name="cash-outline" size={16} color="#555" /> Subtotal: {product.subtotal.toFixed(2)} Kz
             </Text>
             <Text style={styles.separator}></Text>
           </View>
         ))}
       </View>
-    </View>
+    </Animated.View>
   );
+
+  // Função para formatar a data
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString(); // Formato da data depende do idioma do dispositivo
+  };
 
   return (
     <View style={styles.container}>
@@ -80,16 +110,14 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     elevation: 2,
   },
-  pharmacyName: {
-    fontSize: 16,
-    fontWeight: 'bold',
+  iconContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
     marginBottom: 5,
   },
-  totalPrice: {
+  iconText: {
     fontSize: 16,
-    fontWeight: 'bold',
-    color: '#007bff',
-    marginBottom: 10,
+    marginLeft: 10,
   },
   itemsList: {
     marginLeft: 10,
@@ -103,11 +131,13 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#555',
     marginBottom: 3,
+    marginLeft: 10,
   },
   separator: {
     borderBottomColor: '#ccc',
     borderBottomWidth: 1,
     marginBottom: 5,
+    marginLeft: 10,
   },
 });
 
